@@ -1,0 +1,43 @@
+jetson@ubuntu:~/Projet MA2 - Marie Flavio$ python3 sysid/record_robot.py
+The arm is going to move fast: clear its workspace and hold its base down.
+The factory app must be stopped first (arm-stop), it uses the same bus.
+Press Enter to start, Ctrl+C at any time to stop. 
+current angles: [90, 91, 90, 90, 89, 119]
+timing
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/timing.csv (4 rows)
+  full write+read cycle: 73.558 ms median -> at most 14 Hz of control
+servo 1
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/steps_servo1.csv (1274 rows)
+  steps: ends within 1 deg of the command, 0 failed reads out of 1274 -> OK
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/chirp_servo1.csv (417 rows)
+  chirp: 0 failed reads out of 417 -> OK
+servo 2
+Arm_serial_servo_read I2C error
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/steps_servo2.csv (1274 rows)
+  steps: ends within 2 deg of the command, 0 failed reads out of 1274 -> OK
+Arm_serial_servo_write I2C error
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/chirp_servo2.csv (417 rows)
+  chirp: 0 failed reads out of 417 -> OK
+servo 3
+Arm_serial_servo_read I2C error
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/steps_servo3.csv (1276 rows)
+  steps: ends within 1 deg of the command, 1 failed reads out of 1276 -> OK
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/chirp_servo3.csv (417 rows)
+  chirp: 0 failed reads out of 417 -> OK
+servo 4
+Arm_serial_servo_read I2C error
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/steps_servo4.csv (1280 rows)
+  steps: ends within 1 deg of the command, 1 failed reads out of 1280 -> OK
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/chirp_servo4.csv (417 rows)
+  chirp: 0 failed reads out of 417 -> OK
+servo 5
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/steps_servo5.csv (1276 rows)
+  steps: ends within 1 deg of the command, 0 failed reads out of 1276 -> OK
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/chirp_servo5.csv (417 rows)
+  chirp: 0 failed reads out of 417 -> OK
+servo 6
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/steps_servo6.csv (1898 rows)
+  steps: ends within 1 deg of the command, 0 failed reads out of 1898 -> OK
+  wrote /home/jetson/Projet MA2 - Marie Flavio/sysid/data/chirp_servo6.csv (427 rows)
+  chirp: 0 failed reads out of 427 -> OK
+all servos OK
