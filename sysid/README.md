@@ -172,6 +172,11 @@ Options utiles : `--servos 2 3` (les deux scripts), `--tests steps chirp`, `--ou
 Ces conversions sont dans la table `SERVOS` de `fit_xml.py`, les appels à la librairie dans la classe
 `Arm` de `record_robot.py`.
 
+Une exception, mesurée avec la caméra du bras (`calib/README.md`) : le servo 1 tourne 3 % de moins que ce
+qu'il relit, sa pente dans `SERVOS` est donc `0.97 · π/180`. Les paramètres du servo 1 dans le XML ont été
+ajustés avant cette correction ; relancer `fit_xml.py --servos 1` les augmente de 3 % environ (`kp` passe
+de 12,62 à 13,01) pour la même erreur de 0,61°, et réduirait de 3 % ses butées si `limits.csv` existait.
+
 ## Limites
 
 - **Lecture en degrés entiers, tronqués** : une consigne de 100° peut se relire 99°. Cela limite la

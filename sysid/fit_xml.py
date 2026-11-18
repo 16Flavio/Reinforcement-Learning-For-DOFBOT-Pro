@@ -29,10 +29,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 # servo : (articulation, actionneur, deg0, pente) avec q [rad] = pente * (deg - deg0).
 # Servos 1 à 5 : conversion du pilote MoveIt de Yahboom (deg = q * 180 / pi + 90).
+# Servo 1 : il tourne 3 % de moins que ce qu'il relit (0,962 à 0,978 selon la mesure, voir calib/README.md).
 # Pince : 30° (ouverte) -> q = 0 et 180° (fermée) -> q = -pi/2, soit 0,6° d'articulation par degré de servo
 # comme chez Yahboom, mais dans le sens ouvert/fermé du modèle MuJoCo -- à vérifier sur le vrai bras.
 DEG = np.pi / 180
-SERVOS = {1: ("Arm1_Joint", "Arm1", 90, DEG), 2: ("Arm2_Joint", "Arm2", 90, DEG), 3: ("Arm3_Joint", "Arm3", 90, DEG),
+SERVOS = {1: ("Arm1_Joint", "Arm1", 90, 0.97 * DEG), 2: ("Arm2_Joint", "Arm2", 90, DEG), 3: ("Arm3_Joint", "Arm3", 90, DEG),
           4: ("Arm4_Joint", "Arm4", 90, DEG), 5: ("Arm5_Joint", "Arm5", 90, DEG),
           6: ("grip_joint", "grip", 30, -0.6 * DEG)}
 
