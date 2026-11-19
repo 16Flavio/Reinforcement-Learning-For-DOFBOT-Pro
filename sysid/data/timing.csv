@@ -1,5 +1,5 @@
 operation,n,mean_ms,median_ms,max_ms,failed_reads,reads
-read_one,100,13.943,13.180,16.829,0,100
-write_one,100,10.850,10.733,12.373,0,0
+read_one,100,13.943,13.18,16.829,0,100
+write_one,100,10.85,10.733,12.373,0,0
 write_all,100,12.556,11.889,15.056,0,0
 cycle_write_all_read_all,50,73.681,73.558,76.567,0,300
