@@ -19,7 +19,15 @@ class ReachEnv(gym.Env):
         self.decision = 0
 
         # Importation du modèle
-        self.model = mujoco.MjModel.from_xml_path(os.path.join(Path(os.path.dirname(__file__)).parent.parent / "3DModels", "dofbot_pro.xml"))
+        spec = mujoco.MjSpec.from_file(os.path.join(Path(os.path.dirname(__file__)).parent.parent / "3DModels", "dofbot_pro.xml"))
+
+        # Sphère verte pour visualiser la cible, ajoutée ici plutôt que dans le XML (3DModels n'est pas versionné)
+        # Corps mocap : placé directement depuis Python, sans physique
+        # Un site n'a ni masse ni collision, il ne change donc ni la simulation ni data.ncon
+        target = spec.worldbody.add_body(name="target", mocap=True)
+        target.add_site(name="target_site", type=mujoco.mjtGeom.mjGEOM_SPHERE, size=[0.01, 0, 0], rgba=[0, 1, 0, 0.5])
+
+        self.model = spec.compile()
         self.data = mujoco.MjData(self.model)
 
         # Positions initialisées seront défini de manière aléatoire dans reset()
@@ -103,6 +111,8 @@ class ReachEnv(gym.Env):
 
         # On récupère la position comme un point à atteindre
         self._target_location = self.data.site("grip_site").xpos.copy()
+        # On y place la sphère verte
+        self.data.mocap_pos[0] = self._target_location
 
         while True:
             # On prend aléatoirement une nouvelle position
