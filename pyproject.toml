@@ -13,6 +13,9 @@ dependencies = [
     "mujoco>=4.0.1",
     "opencv-python-headless>=4.8",
     "scipy>=1.18.1",
+    "torch>=2.15.0",
+    "torchaudio>=2.11.1",
+    "torchvision>=0.29.2",
 ]
 
 [project.scripts]

@@ -62,7 +62,7 @@ class ReachEnv(gym.Env):
             obs.append(coordinate)
 
         for i in range(3):
-            obs.append(self._target_location[i] - self.data.site("grip_site").xpos[i])
+            obs.append(10*(self._target_location[i] - self.data.site("grip_site").xpos[i])) #AJOUT DU 10* pour la conversion cm en m
 
         return np.array(obs, dtype=np.float32)
 
@@ -128,6 +128,9 @@ class ReachEnv(gym.Env):
         # Retour standard de la bibliothèque
         observation = self._get_obs()
         info = self._get_info()
+        #AJOUT BELOW
+        self._init_dist = max(info["distance"], 0.05)   # évite de diviser par ~0
+        self._prev_dist = info["distance"]
 
         return observation, info
 
@@ -160,10 +163,19 @@ class ReachEnv(gym.Env):
         observation = self._get_obs()
         info = self._get_info()
 
-        if np.linalg.norm(observation[-3:]) <= 0.01:
+        """if np.linalg.norm(observation[-3:]) <= 0.01:
             reward = 1
         else:
-            reward = 1/(info["distance"]*100 + 1e-6)
+            reward = 1/(info["distance"]*100 + 1e-6)"""
+
+        #CHANGEMENT POUR LE REWARD -> REWARD PRENANT EN COMPTE LA DISTANCE TOTALE A PARCOURIR
+        dist = info["distance"]
+        progress = (self._prev_dist - dist) / self._init_dist
+        self._prev_dist = dist
+
+        reward = 10 * progress              # ~10 au total si on parcourt tout le trajet
+        if info["atteint"]:
+            reward += 1                     # bonus tant qu'on reste à moins de 1 cm
 
         self.decision += 1
         if self.decision >= self.maxDecision:
@@ -173,7 +185,8 @@ class ReachEnv(gym.Env):
 
         if self.data.ncon >= 1:
             terminated = True
-            reward = -10
+            #reward = -10
+            reward = -5
         else:
             terminated = False
 

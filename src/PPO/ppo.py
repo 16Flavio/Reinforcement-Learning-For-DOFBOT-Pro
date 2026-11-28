@@ -4,7 +4,9 @@ from torch.optim import Adam
 import torch
 import torch.nn as nn
 import numpy as np
+from pathlib import Path
 
+SAVE_DIR = Path(__file__).parent
 
 """
 PPO algorithm : 
@@ -214,6 +216,10 @@ class PPO:
 
         #Step 2 : doing a loop over k
         while t_so_far < total_timesteps:
+            #frac = min(1.0, t_so_far / total_timesteps)
+            #var = 0.3 * (1 - frac) + 0.01 * frac      # variance de 0.3 vers 0.01
+            #self.cov_var = torch.full((self.act_dim,), var)
+            #self.cov_mat = torch.diag(self.cov_var)
             #algo step 3
             batch_obs, batch_acts, batch_log_probs, batch_rtgs, batch_lens, stats = self.rollout()
             #calculate how many timesteps we collected this batch
@@ -267,6 +273,8 @@ class PPO:
             if i_so_far % self.save_freq == 0:
                 torch.save(self.actor.state_dict(), './ppo_actor.pth')
                 torch.save(self.critic.state_dict(), './ppo_critic.pth')
+        torch.save(self.actor.state_dict(), SAVE_DIR / 'ppo_actor.pth')
+        torch.save(self.critic.state_dict(), SAVE_DIR / 'ppo_critic.pth')
 
     def evaluate(self, batch_obs, batch_acts):
         """

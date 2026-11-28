@@ -40,7 +40,7 @@ def train(env, hyperparameters, actor_model, critic_model):
 	# Train the PPO model with a specified total timesteps
 	# NOTE: You can change the total timesteps here, I put a big number just because
 	# you can kill the process whenever you feel like PPO is converging
-	model.learn(total_timesteps=2000)
+	model.learn(total_timesteps=500000)
 
 def test(env, actor_model):
 	"""
@@ -74,7 +74,7 @@ def test(env, actor_model):
 	# that once we are done training the model/policy with ppo.py, we no longer need
 	# ppo.py since it only contains the training algorithm. The model/policy itself exists
 	# independently as a binary file that can be loaded in with torch.
-	eval_policy(policy=policy, env=env, render=True)
+	eval_policy(policy=policy, env=env, render=True, n_episodes=100)
 
 def main(args):
 	"""
@@ -90,7 +90,7 @@ def main(args):
 	# ArgumentParser because it's too annoying to type them every time at command line. Instead, you can change them here.
 	# To see a list of hyperparameters, look in ppo.py at function _init_hyperparameters
 	hyperparameters = {
-				'timesteps_per_batch': 500, 
+				'timesteps_per_batch': 2000, 
 				'max_timesteps_per_episode': 50, 
 				'gamma': 0.99, 
 				'n_updates_per_iteration': 10,
